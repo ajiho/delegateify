@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div class="box" style="background: red; height: 100px;width: 100px;">
+        <div class="inner-box" style="background: blue; height: 50px;width: 50px;"></div>
+    </div>
+
+
+    <div id="node0" style="width: 100px;height: 100px;">
+        <div id="node1" style="width: 50px;height: 50px;">
+            <button id="button0">Click me!</button>
+        </div>
+    </div>
+
+
+    <button id="off">off</button>
+
+
+    <script src="/dist/delegateify.js"></script>
+    <script src="./jquery.js"></script>
+
+    <script>
+
+
+
+        const deletage = new Delegateify(document);
+
+
+        document.querySelector('#off').addEventListener('click', function () {
+
+            //移除实例上所有的事件监听
+            //deletage.off();
+
+            //删除所有的鼠标移入的事件
+            // deletage.off('mouseover')
+
+            //删除某个选择器对应的元素的所有侦听器
+            // deletage.off(null,'.box')
+
+
+            //删除所有调用函数句柄的侦听器
+            // deletage.off(null, null, mouseover);
+
+
+            //删除在捕获阶段侦听的所有侦听器
+            // deletage.off(null, null, null, true);
+
+
+            //删除调用指定函数句柄的单击事件的所有侦听器
+            // deletage.off('mouseover', null, mouseover);
+
+
+            //删除所有符合所有条件的侦听器
+            // deletage.off('mouseover', '.box', mouseover, true);
+
+
+            //移除命名空间.namespace1下的所有事件
+            // deletage.off('.namespace1');
+
+
+            //移除命名空间.namespace2下的所有事件同时会包括该命名空间下的所有子命名空间对应的事件
+            // deletage.off('.namespace2');
+
+
+            //只移除.namespace2下的.namespace2-1对应的事件
+            // deletage.off('.namespace2.namespace2-1');
+
+        })
+
+
+        // deletage.on('click.namespace1', '.box', function (event) {
+        //     console.log('我是命名空间1下面的点击事件');
+        // });
+
+        // deletage.on('click.namespace2', '.box', function (event) {
+        //     console.log('我是命名空间2下面的点击事件');
+        // });
+
+        // deletage.on('click.namespace2.namespace2-1', '.box', function (event) {
+        //     console.log('我是命名空间2下面的子命名空间的点击事件');
+        // });
+
+
+
+        //只监听一次事件
+        deletage.on('click', '.box', function myclick(event) {
+            deletage.off('click', '.box', myclick);
+            console.log('我被点击了');
+        });
+
+
+
+
+        // function mouseover() {
+        //     console.log('box-mouseover');
+        // }
+
+
+        // //外部大盒子的委托
+        // deletage.on('click', '.box', function () {
+        //     console.log('box-click-1');
+        // });
+
+        //外部大盒子鼠标移入事件
+        // deletage.on('mouseover', '.box', function () {
+        //     console.log('box-mouseover-1');
+        // });
+
+        // deletage.on('mouseover', '.box', function () {
+        //     console.log('box-mouseover-2');
+        // });
+
+
+        // deletage.on('mouseover', '.box', mouseover, true);
+
+        // deletage.on('mouseover', '.box', mouseover);
+
+
+        //内部盒子
+        // deletage.on('click', '.inner-box', function (event) {
+        //     event.stopPropagation()
+        //     console.log('inner-box');
+
+        //     console.log(this);
+        //     console.log(this);
+
+
+        // });
+
+
+
+        //jquery
+        // $(document).on('click','.inner-box',function(event){
+        //     console.log(event);
+        //     console.log(event.delegateTarget);
+        //     // console.log(this);
+        //     // console.log(event.matchedTarget);
+        //     // console.log(event.currentTarget);
+        //     // console.log(event.target);
+        // })
+
+
+        //delegatetify
+        // new Delegateify(document).on('click', '.inner-box', function (event) {
+        //     // console.log(event);
+        //     // console.log(this);
+        //     // console.log(event.currentTarget);
+        //     // console.log(event.target);
+        // })
+
+        // document.querySelector('.inner-box').addEventListener('click',function(event){
+        //     console.log(event.currentTarget);
+        // })
+
+
+        // new Delegateify('#node0').on('click', '#node1', function (event) {
+        //     console.log(this === document.querySelector('#node1'));
+        //     console.log(event.matchedTarget === document.querySelector('#node1'));
+        //     console.log(event.currentTarget === document.querySelector('#node0'));
+        //     console.log(event.target === document.querySelector('#button0'))
+        // });
+
+
+
+
+        // Click the button
+        // document.querySelector('#button0').click();
+
+        // console.log(document.documentElement);
+
+
+        // new Delegateify(window).on('resize', function (event) {
+        //     console.log('Window resized!');
+        // });
+
+
+    </script>
+</body>
+
+</html>
