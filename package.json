@@ -1,6 +1,6 @@
 {
   "name": "delegateify",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Lightweight event delegation is like jquery's on method",
   "main": "dist/delegateify.js",
   "module": "dist/delegateify.esm.js",
