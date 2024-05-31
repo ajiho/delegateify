@@ -68,14 +68,7 @@ class Delegateify {
 
     if (typeof useCapture === 'undefined') {
       // 强制使用Capture进行焦点和模糊事件
-      if (eventName === 'focus' || eventName === 'blur') {
-        // 默认情况下 true 仅适用于焦点和模糊事件
-        useCapture = true
-      } else {
-        // 默认为 false
-        // 这与 HTML API 匹配
-        useCapture = false
-      }
+      useCapture = eventName === 'focus' || eventName === 'blur'
     }
 
     // 提取命名空间

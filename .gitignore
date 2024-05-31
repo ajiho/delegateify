@@ -2,6 +2,7 @@
 node_modules
 .cache/
 **/.cache/
+**/dist/
 .temp
 **/.temp/
 .vscode

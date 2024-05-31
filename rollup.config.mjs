@@ -3,9 +3,18 @@ import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
 import babel from '@rollup/plugin-babel';
 import stripBanner from 'rollup-plugin-strip-banner';
-import getBanner,{pkgJson} from './build/banner.mjs';
+import pkg from './package.json' assert { type: "json" };
 
 
+const year = new Date().getFullYear();
+
+function getBanner() {
+    return `/*!
+ * ${pkg.name} v${pkg.version} (${pkg.homepage})
+ * Copyright 2024-${year} ${pkg.author}
+ * license ${pkg.license}
+ */\n`;
+}
 
 const plugins = [
     resolve(),
@@ -36,7 +45,7 @@ const config = [];
 
 
 
-let file = pkgJson.main
+let file = pkg.main
 if (process.env.NODE_ENV === 'production') {
     file = file.replace(/\.js$/, '.min.js')
 }
@@ -61,7 +70,7 @@ config.push({
 })
 
 
-file = pkgJson.module;
+file = pkg.module;
 if (process.env.NODE_ENV === 'production') {
     file = file.replace(/\.js$/, '.min.js')
 }
